@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Syllabus & Dates</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #4a4a4a;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        /* Search section */
+        .search-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        #searchInput {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #searchInput:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Exam grid */
+        .exam-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .exam-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .exam-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .exam-card h2 {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            font-size: 1.2rem;
+        }
+
+        .exam-card p {
+            padding: 15px;
+            line-height: 1.6;
+        }
+
+        .exam-card strong {
+            color: #667eea;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .exam-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Exam Syllabus & Dates</h1>
+    </header>
+    <main class="container">
+        <section class="search-section">
+            <input type="text" id="searchInput" placeholder="Search exams by name or date...">
+        </section>
+        <section id="examList" class="exam-grid"></section>
+    </main>
+    <script>
+        // Sample exam data (updated with new exams)
+        const exams = [
+            {
+                name: "Mathematics Exam",
+                syllabus: "Algebra, Calculus, Geometry",
+                date: "2023-10-15",
+                description: "Covers basic to advanced math topics."
+            },
+            {
+                name: "Physics Exam",
+                syllabus: "Mechanics, Thermodynamics, Electromagnetism",
+                date: "2023-11-20",
+                description: "Focuses on core physics principles."
+            },
+            {
+                name: "Chemistry Exam",
+                syllabus: "Organic Chemistry, Inorganic Chemistry, Physical Chemistry",
+                date: "2023-12-05",
+                description: "Includes lab-based and theoretical questions."
+            },
+            {
+                name: "Python Exam",
+                syllabus: "Basics, Data Structures, Algorithms, Libraries",
+                date: "2024-01-10",
+                description: "Programming fundamentals and advanced Python concepts."
+            },
+            {
+                name: "English Exam",
+                syllabus: "Grammar, Literature, Writing, Comprehension",
+                date: "2024-02-14",
+                description: "Focuses on language skills and literary analysis."
+            },
+            {
+                name: "Web Design Exam",
+                syllabus: "HTML, CSS, JavaScript, Responsive Design",
+                date: "2024-03-20",
+                description: "Covers front-end development and design principles."
+            }
+        ];
+
+        // Function to render exams
+        function renderExams(filteredExams) {
+            const examList = document.getElementById('examList');
+            examList.innerHTML = '';
+            filteredExams.forEach(exam => {
+                const card = document.createElement('div');
+                card.className = 'exam-card';
+                card.innerHTML = `
+                    <h2>${exam.name}</h2>
+                    <p><strong>Syllabus:</strong> ${exam.syllabus}</p>
+                    <p><strong>Date:</strong> ${exam.date}</p>
+                    <p>${exam.description}</p>
+                `;
+                examList.appendChild(card);
+            });
+        }
+
+        // Initial render
+        renderExams(exams);
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const filtered = exams.filter(exam =>
+                exam.name.toLowerCase().includes(query) ||
+                exam.date.includes(query)
+            );
+            renderExams(filtered);
+        });
+    </script>
+</body>
+</html>
